@@ -44,8 +44,14 @@ if not os.path.exists(args.outdir):
 if args.gpu:
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
+#set random seed
 np.random.seed(args.seed)
 torch.manual_seed(args.seed)
+torch.cuda.manual_seed_all(args.seed)
+random.seed(args.seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
 gpu_list = [int(i) for i in args.gpu.strip().split(",")] if args.gpu is not "0" else [0]
 if args.gpu == "-1":
     device = torch.device('cpu')
@@ -201,7 +207,7 @@ def main():
             log(log_filename, "{}\t{:.3}\t{:.3}\t{:.3}\t{:.3}\t{:.3}\t{:.3}".format(
                 epoch, str(datetime.timedelta(seconds=(after - before))), lr, train_loss, train_acc, test_loss, test_acc))
     else:
-        eval_best = torch.load(args.outdir + 'model_best.pth.tar', map_location=device)
+        eval_best = torch.load(args.outdir + 'model_best.pth', map_location=device)
         model.load_state_dict(eval_best['state_dict'])
         test(test_loader, model, criterion, C)
 
