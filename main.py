@@ -202,7 +202,7 @@ def main():
             is_best = test_acc > best_acc1
             best_acc1 = max(test_acc, best_acc1)
             
-            torch.save(model.state_dict(), os.path.join('results/clean/', 'cleanmodel.pth'))
+            torch.save(model.state_dict(), os.path.join('', 'cleanmodel.pth'))
             save_checkpoint({'epoch': epoch + 1, 'arch': args.arch, 'state_dict': model.state_dict(),
                              'best_acc1': best_acc1, 'optimizer': optimizer.state_dict()}, is_best, args.outdir)
 
