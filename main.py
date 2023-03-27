@@ -208,6 +208,10 @@ def main():
 
             log(log_filename, "{}\t{:.3}\t{:.3}\t{:.3}\t{:.3}\t{:.3}\t{:.3}".format(
                 epoch, str(datetime.timedelta(seconds=(after - before))), lr, train_loss, train_acc, test_loss, test_acc))
+    
+        print('weight_conv',model.module.conv1.weight)
+        print('weight_linear',model.module.linear.weight)
+    
     else:
         eval_best = torch.load(args.outdir + 'model_best.tar.pth', map_location=device)
         model.load_state_dict(eval_best['state_dict'])
