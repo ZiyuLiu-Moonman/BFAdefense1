@@ -37,8 +37,14 @@ if args.gpu:
 if not os.path.exists("tbfa_results/"):
     os.makedirs("tbfa_results/")
 
+#set random seed
 np.random.seed(args.seed)
 torch.manual_seed(args.seed)
+torch.cuda.manual_seed_all(args.seed)
+random.seed(args.seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
 gpu_list = [int(i) for i in args.gpu.strip().split(",")] if args.gpu is not "0" else [0]
 if args.gpu == "-1":
     device = torch.device('cpu')
