@@ -199,8 +199,8 @@ def main():
             test_loss, test_acc = test(test_loader, model, criterion, C)
             #print('weight_conv',model.module.conv1.weight)
             #print('grad_conv',model.module.conv1.weight.grad)
-            print('weight_linear',model.module.linear.weight)
-            print('grad_linear',model.module.linear.weight.grad)
+            #print('weight_linear',model.module.linear.weight)
+            #print('grad_linear',model.module.linear.weight.grad)
             after = time.time()
 
             is_best = test_acc > best_acc1
